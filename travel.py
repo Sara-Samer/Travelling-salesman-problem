@@ -261,47 +261,6 @@ def travel(start, goal, startDay, endDay, flights, timeTables):
     paths.sort()
     return paths
 
-# def travel(start, goal, startDay, endDay, flights, timeTables):
-#     _open = []
-#     closed = []
-#     time = Time()
-#     minutes = 1440
-#     day = travelDays[0]
-#     startNode = Node(start)
-#     goalNode = Node(goal)
-#     _open.append(startNode)
-#     while len(_open) > 0:
-#         _open.sort()
-#         currentNode = _open.pop(0)
-#         currentCity = currentNode.getCity()
-#         currentCost = currentNode.getTimeCost()
-#         if currentCost % minutes == 0:
-#             index = math.floor(currentCost/minutes)
-#             if index == len(travelDays):
-#                 return None
-#             day = travelDays[index]
-#         lastVisited = list(currentNode.getVisited())
-#         closed.append(currentNode)
-#         if currentNode == goal:
-#             return currentNode.getVisited()
-#         children = getAvailableCities(currentCity, timeTables)
-#         for child in children:
-#             for flight in child.getFlights():
-#                 if day not in flight.getDays():
-#                     continue
-#                 nextCity = child.getCityTo()
-#                 hueristic = currentCity.getDistanceFrom(nextCity)
-#                 cost = flight.getDuration() + currentCost
-#                 text = "\nfrom " + currentCity.getName() + " To " + nextCity.getName() + \
-#                     " using flight " + str(flight)
-#                 node = Node(nextCity, cost, hueristic,
-#                             lastVisited.append(text))
-#                 if node in closed:
-#                     continue
-#                 if(addToOpen(node, _open)):
-#                     _open.append(node)
-#     return None
-
 
 class Days(enum.Enum):
     Sat = 1
@@ -331,7 +290,6 @@ def main():
         12, 56), 'n315', [Days.Tue, Days.Fri]))
     flights.append(Flight(Time(3, 00), Time(
         7, 45), 'f180', [Days.Thu, Days.Sat]))
-    print(flights[0].arrivalTime)
     timeTables.append(
         TimeTable(cities['Egypt'], cities['UK'], getFlights(['n60', 'f180'], flights)))
     timeTables.append(
@@ -339,17 +297,12 @@ def main():
     timeTables.append(
         TimeTable(cities['Japan'], cities['USA'], getFlights(['n60', 'n70'], flights)))
 
-    # for day in range(Days.Sat.value, Days.Tue.value + 1):
-    #     print(Days(day))
-
     # start = input("Enter start city: ")
     # destination = input("Enter destination city: ")
+    # print("Days: Sat, Sun, Mon, Tue, Wed, Thu and Fri")
     # startDay = Days[input("Enter start day: ")]
     # endDay = Days[input("Enter end day: ")]
-    # travel(start, destination, startDay, endDay)
-
-    # travel(cities['Egypt'], cities['UK'], [
-    #        Days.Sun, Days.Mon], flights, timeTables)
+    # travel(start, destination, startDay, endDay, flights, timeTables)
 
 
 if __name__ == '__main__':
